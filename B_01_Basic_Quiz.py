@@ -65,8 +65,10 @@ def quiz():
             break
 
     # loops while question_num is lower than amount of questions - chosen at the start
-    while question_num <= amount_questions:
+    while question_num < amount_questions:
+
         question_num += 1
+
         print()
         print(f"Question {question_num}:")
 
@@ -106,24 +108,20 @@ def quiz():
             question_format = f"What is {num_1} divided by {num_2}? "
             answer = num_1 / num_2
 
-        # prints the question
-        print(question_format)
-
         # The user gets to ask the question
         user_answer = int_check(question_format)
-        print(f"Answer: {answer}")
 
         # sets correct to yes if the answer is correct
         if user_answer == answer:
             round_won += 1
             feedback = f"You got the answer right, it was {answer}"
-            history_item = f"In Round {question_num}: You got the answer right, it was {answer}."
+            history_item = f"Round {question_num}: You got the answer right, it was {answer}."
 
         # sets correct to no
         else:
             round_lost += 1
             feedback = f"You got the answer wrong, it was {answer}"
-            history_item = f"In Round {question_num}: You got the answer wrong, it was {answer}."
+            history_item = f"Round {question_num}: You got the answer wrong, it was {answer}."
 
         # adds the round result into a list
         history.append(history_item)
@@ -150,20 +148,18 @@ def quiz():
 
     # If yes, displays the game stats
     if view_stats == "yes":
-
         # Calculates the win percentage
         rounds_won = round_won / question_num * 100
 
         # Calculates loss percentage:
         rounds_lost = round_lost / question_num * 100
 
-        print(f"Out of {question_num} rounds:")
+        print(f"Out of {question_num} questions:")
         print()
-        print(f"- {rounds_won:.2f}% of games won")
+        print(f"- {rounds_won:.2f}% of questions correct")
         print()
-        print(f"- {rounds_lost:.2f}% of games lost")
+        print(f"- {rounds_lost:.2f}% of questions wrong")
         print()
-
 
 
 # Main routine
