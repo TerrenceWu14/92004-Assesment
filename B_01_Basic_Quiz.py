@@ -53,6 +53,8 @@ def quiz():
     # Initializes variables
     question_num = 0
     history = []
+    round_won = 0
+    round_lost = 0
 
     # asks the user how hard they would like the quiz to be
     while True:
@@ -113,15 +115,20 @@ def quiz():
 
         # sets correct to yes if the answer is correct
         if user_answer == answer:
+            round_won += 1
             feedback = f"You got the answer right, it was {answer}"
             history_item = f"In Round {question_num}: You got the answer right, it was {answer}."
 
         # sets correct to no
         else:
+            round_lost += 1
             feedback = f"You got the answer wrong, it was {answer}"
             history_item = f"In Round {question_num}: You got the answer wrong, it was {answer}."
 
+        # adds the round result into a list
         history.append(history_item)
+
+        # prints the feedback/result of the round
         print(feedback)
 
     # asks the user whether they would want to see the game history
@@ -135,6 +142,28 @@ def quiz():
         # Outputs the game history
         for item in history:
             print(item)
+
+    # Asks the user if they want to view the game stats
+    print()
+    view_stats = yes_no("Do you want to view the stats? ")
+    print()
+
+    # If yes, displays the game stats
+    if view_stats == "yes":
+
+        # Calculates the win percentage
+        rounds_won = round_won / question_num * 100
+
+        # Calculates loss percentage:
+        rounds_lost = round_lost / question_num * 100
+
+        print(f"Out of {question_num} rounds:")
+        print()
+        print(f"- {rounds_won:.2f}% of games won")
+        print()
+        print(f"- {rounds_lost:.2f}% of games lost")
+        print()
+
 
 
 # Main routine
@@ -151,8 +180,12 @@ want_instruction = yes_no("Do you want to read the instructions? (If so type yes
 if want_instruction == "yes":
     instructions()
 
-# asks the user how many questions they want
-amount_questions = int_check("How many questions do you want us to ask? ")
+while True:
+    # asks the user how many questions they want
+    amount_questions = int_check("How many questions do you want us to ask? ")
+
+    if amount_questions > 0:
+        break
 
 # Starts the quiz
 quiz()
