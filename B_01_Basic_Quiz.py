@@ -50,6 +50,9 @@ def yes_no(question):
 
 
 def quiz():
+    # Initializes variables
+    question_num = 0
+    history = []
 
     # asks the user how hard they would like the quiz to be
     while True:
@@ -59,58 +62,79 @@ def quiz():
         else:
             break
 
-    # Generates the numbers for the question and difficulty
-    if difficulty == 3:
-        num_1 = random.randint(1, 25)
-        num_2 = random.randint(1, 25)
-    elif difficulty == 2:
-        num_1 = random.randint(1, 15)
-        num_2 = random.randint(1, 15)
-    else:
-        num_1 = random.randint(1, 10)
-        num_2 = random.randint(1, 10)
+    # loops while question_num is lower than amount of questions - chosen at the start
+    while question_num <= amount_questions:
+        question_num += 1
+        print()
+        print(f"Question {question_num}:")
 
-    # the list for the types of question
-    math_type = ["multiplication", "adding", "subtraction", "division"]
+        # Generates the numbers for the question and difficulty
+        if difficulty == 3:
+            num_1 = random.randint(1, 25)
+            num_2 = random.randint(1, 25)
+        elif difficulty == 2:
+            num_1 = random.randint(1, 15)
+            num_2 = random.randint(1, 15)
+        else:
+            num_1 = random.randint(1, 10)
+            num_2 = random.randint(1, 10)
 
-    # generates the question type
-    question_type = random.choice(math_type)
+        # the list for the types of question
+        math_type = ["multiplication", "adding", "subtraction", "division"]
 
-    # generates the question format
-    if math_type == "subtraction":
-        question_format = f"What is {num_1} - {num_2}? "
-        answer = num_1 - num_2
+        # generates the question type
+        question_type = random.choice(math_type)
 
-    elif question_type == "adding":
-        question_format = f"What is {num_1} + {num_2}? "
-        answer = num_1 + num_2
+        # generates the question format
+        if math_type == "subtraction":
+            question_format = f"What is {num_1} - {num_2}? "
+            answer = num_1 - num_2
 
-    elif question_type == "multiplication":
-        question_format = f"What is {num_1} x {num_2}? "
-        answer = num_1 * num_2
+        elif question_type == "adding":
+            question_format = f"What is {num_1} + {num_2}? "
+            answer = num_1 + num_2
 
-    else:
-        # makes sure that the number being divided is always going to result in a whole number
-        num_1 = num_1 * num_2
-        question_format = f"What is {num_1} divided by {num_2}? "
-        answer = num_1 / num_2
+        elif question_type == "multiplication":
+            question_format = f"What is {num_1} x {num_2}? "
+            answer = num_1 * num_2
 
-    # prints the question
-    print(question_format)
+        else:
+            # makes sure that the number being divided is always going to result in a whole number
+            num_1 = num_1 * num_2
+            question_format = f"What is {num_1} divided by {num_2}? "
+            answer = num_1 / num_2
 
-    # The user gets to ask the question
-    user_answer = int_check(question_format)
-    print(f"Answer: {answer}")
+        # prints the question
+        print(question_format)
 
-    # sets correct to yes if the answer is correct
-    if user_answer == answer:
-        correct = "yes"
+        # The user gets to ask the question
+        user_answer = int_check(question_format)
+        print(f"Answer: {answer}")
 
-    # sets correct to no
-    else:
-        correct = "no"
+        # sets correct to yes if the answer is correct
+        if user_answer == answer:
+            feedback = f"You got the answer right, it was {answer}"
+            history_item = f"In Round {question_num}: You got the answer right, it was {answer}."
 
-    return correct
+        # sets correct to no
+        else:
+            feedback = f"You got the answer wrong, it was {answer}"
+            history_item = f"In Round {question_num}: You got the answer wrong, it was {answer}."
+
+        history.append(history_item)
+        print(feedback)
+
+    # asks the user whether they would want to see the game history
+    view_history = yes_no("Do you want to view the game history?")
+    print()
+
+    # displays the game history if the user wants to see it
+    if view_history == "yes":
+        print("\n⌛⌛⌛ Game History ⌛⌛⌛ ")
+        print()
+        # Outputs the game history
+        for item in history:
+            print(item)
 
 
 # Main routine
@@ -130,13 +154,5 @@ if want_instruction == "yes":
 # asks the user how many questions they want
 amount_questions = int_check("How many questions do you want us to ask? ")
 
-# Initializes variables
-question_num = 0
-
-while question_num <= amount_questions:
-    question_num += 1
-    print()
-    print(f"Question {question_num}:")
-
-    # Starts the quiz
-    quiz()
+# Starts the quiz
+quiz()
