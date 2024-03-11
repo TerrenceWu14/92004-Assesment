@@ -50,19 +50,18 @@ def yes_no(question):
 
 
 def quiz():
-
     # Generates the numbers for the question
-    num_1 = random.randint(1, 100)
-    num_2 = random.randint(1, 100)
+    num_1 = random.randint(1, 25)
+    num_2 = random.randint(1, 25)
 
     # the list for the types of question
-    type = ["multiplication", "adding", "subtraction", "division"]
+    math_type = ["multiplication", "adding", "subtraction", "division"]
 
     # generates the question type
-    question_type = random.choice(type)
+    question_type = random.choice(math_type)
 
     # generates the question format
-    if type == "subtraction":
+    if math_type == "subtraction":
         question_format = f"What is {num_1} - {num_2}? "
         answer = num_1 - num_2
 
@@ -75,6 +74,8 @@ def quiz():
         answer = num_1 * num_2
 
     else:
+        # makes sure that the number being divided is always going to result in a whole number
+        num_1 = num_1 * num_2
         question_format = f"What is {num_1} divided by {num_2}? "
         answer = num_1 / num_2
 
@@ -118,6 +119,7 @@ question_num = 0
 
 while question_num <= amount_questions:
     question_num += 1
+    print()
     print(f"Question {question_num}:")
 
     # Starts the quiz
