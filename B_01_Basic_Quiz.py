@@ -50,9 +50,25 @@ def yes_no(question):
 
 
 def quiz():
-    # Generates the numbers for the question
-    num_1 = random.randint(1, 25)
-    num_2 = random.randint(1, 25)
+
+    # asks the user how hard they would like the quiz to be
+    while True:
+        difficulty = int_check("What level of difficulty do you want to play? 1 to 3 with 3 being the hardest: ")
+        if difficulty > 3:
+            print("Choose a number from 1 to 3 only: ")
+        else:
+            break
+
+    # Generates the numbers for the question and difficulty
+    if difficulty == 3:
+        num_1 = random.randint(1, 25)
+        num_2 = random.randint(1, 25)
+    elif difficulty == 2:
+        num_1 = random.randint(1, 15)
+        num_2 = random.randint(1, 15)
+    else:
+        num_1 = random.randint(1, 10)
+        num_2 = random.randint(1, 10)
 
     # the list for the types of question
     math_type = ["multiplication", "adding", "subtraction", "division"]
@@ -101,7 +117,7 @@ def quiz():
 
 # Displays the title
 print()
-print("--- Welcome to Terrence's Math Quiz ---")
+print("--- Welcome to Terrence's Math Quiz on Basic Facts ---")
 print()
 
 # Asks the user if they want to see the instructions
