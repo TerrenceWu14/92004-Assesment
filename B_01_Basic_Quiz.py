@@ -130,7 +130,7 @@ def quiz():
         elif user_answer == answer:
             round_won += 1
             feedback = f"You got the answer right, it was {answer}"
-            history_item = f"Round {question_num}: You got the answer right, it was {answer}."
+            history_item = f"Question {question_num}: You got the answer right, it was {answer}."
 
         # sets correct to no
         else:
