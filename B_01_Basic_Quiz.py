@@ -65,9 +65,11 @@ def quiz():
 
     # asks the user how hard they would like the quiz to be
     while True:
-        difficulty = int_check("What level of difficulty do you want to play? 1 to 3 with 3 being the hardest: ")
+        difficulty = int_check("What level of difficulty do you want to play? 1 to 3, with 3 being the hardest: ")
         if difficulty > 3:
             print("Choose a number from 1 to 3 only: ")
+        elif difficulty < 0:
+            pass
         else:
             break
 
