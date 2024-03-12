@@ -32,7 +32,14 @@ def instructions():
 To begin, choose the number of questions you would
 like to be asked. We will then ask that amount of questions.
 
-To leave prematurely 
+To leave prematurely type "xxx" as your answer after we ask you a question.
+To answer, just type your answer in (in integer form only!)
+
+Choose a difficulty level from 1 to 3 with 3 being the hardest and 1 being the easiest,
+the way this works is that depending on the level you choose we will randomly generate a range of
+number depending on the level of difficulty you chose.
+
+Good luck and have fun!
 
     ''')
 
@@ -111,8 +118,14 @@ def quiz():
         # The user gets to ask the question
         user_answer = int_check(question_format)
 
+        # if the user types the exit code they are able to leave the game
+        if user_answer == "xxx":
+            print("Thanks for playing my basic math quiz!")
+            print()
+            break
+
         # sets correct to yes if the answer is correct
-        if user_answer == answer:
+        elif user_answer == answer:
             round_won += 1
             feedback = f"You got the answer right, it was {answer}"
             history_item = f"Round {question_num}: You got the answer right, it was {answer}."
@@ -128,6 +141,12 @@ def quiz():
 
         # prints the feedback/result of the round
         print(feedback)
+
+    # if the user doesn't answer a single question it doesn't display stats/history
+    if question_num == 1:
+        print("Sorry you have not answered a single question thus there is no history"
+              "or statistics we can show you.")
+        exit()
 
     # asks the user whether they would want to see the game history
     view_history = yes_no("Do you want to view the game history?")
