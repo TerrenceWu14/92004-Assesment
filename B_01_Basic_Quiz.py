@@ -136,7 +136,7 @@ def quiz():
         else:
             round_lost += 1
             feedback = f"You got the answer wrong, it was {answer}"
-            history_item = f"Round {question_num}: You got the answer wrong, it was {answer}."
+            history_item = f"Question {question_num}: You got the answer wrong, it was {answer}."
 
         # adds the round result into a list
         history.append(history_item)
