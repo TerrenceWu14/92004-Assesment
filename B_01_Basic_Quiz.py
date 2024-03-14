@@ -3,7 +3,7 @@ import random
 
 def int_check(question, exit_code="xxx"):
     # sets up an error message
-    error = "Please enter an integer or one that is above 0"
+    error = "Please enter an integer or one that is above 0 only"
 
     while True:
         response = input(question).lower()
