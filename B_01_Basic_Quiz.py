@@ -97,7 +97,7 @@ def quiz():
         question_type = random.choice(math_type)
 
         # generates the question format
-        if math_type == "subtraction":
+        if question_type == "subtraction":
             question_format = f"What is {num_1} - {num_2}? "
             answer = num_1 - num_2
 
