@@ -68,7 +68,7 @@ def quiz():
         difficulty = int_check("What level of difficulty do you want to play? 1 to 3, with 3 being the hardest: ")
         if difficulty > 3:
             print("Choose a number from 1 to 3 only: ")
-        elif difficulty < 0:
+        elif difficulty <= 0:
             pass
         else:
             break
@@ -76,10 +76,8 @@ def quiz():
     # loops while question_num is lower than amount of questions - chosen at the start
     while question_num < amount_questions:
 
-        question_num += 1
-
         print()
-        print(f"Question {question_num}:")
+        print(f"Question {question_num + 1}:")
 
         # Generates the numbers for the question and difficulty
         if difficulty == 3:
@@ -130,13 +128,13 @@ def quiz():
         elif user_answer == answer:
             round_won += 1
             feedback = f"You got the answer right, it was {answer}"
-            history_item = f"Question {question_num}: You got the answer right, it was {answer}."
+            history_item = f"Question {question_num + 1}: You got the answer right, it was {answer}."
 
         # sets correct to no
         else:
             round_lost += 1
             feedback = f"You got the answer wrong, it was {answer}"
-            history_item = f"Question {question_num}: You got the answer wrong, it was {answer}."
+            history_item = f"Question {question_num + 1}: You got the answer wrong, it was {answer}."
 
         # adds the round result into a list
         history.append(history_item)
@@ -144,8 +142,10 @@ def quiz():
         # prints the feedback/result of the round
         print(feedback)
 
+        question_num += 1
+
     # if the user doesn't answer a single question it doesn't display stats/history
-    if question_num == 1:
+    if question_num == 0:
         print("Sorry you have not answered a single question thus there is no history"
               "or statistics we can show you.")
         exit()
