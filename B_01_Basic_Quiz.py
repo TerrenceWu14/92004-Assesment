@@ -115,7 +115,7 @@ def quiz():
             question_format = f"What is {num_1} divided by {num_2}? "
             answer = num_1 / num_2
 
-        # The user gets to ask the question
+        # The user gets to answer the question
         user_answer = int_check(question_format)
 
         # if the user types the exit code they are able to leave the game
@@ -197,6 +197,7 @@ want_instruction = yes_no("Do you want to read the instructions? (If so type yes
 if want_instruction == "yes":
     instructions()
 
+# keeps looping until the user inputs a number above 0
 while True:
     # asks the user how many questions they want
     amount_questions = int_check("How many questions do you want us to ask? ")
