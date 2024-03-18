@@ -1,11 +1,26 @@
 import random
 
 
-# checks that the number the user entered is above 0
-# if it isn't, it prints an error message and send the user back to the start of the loop
-def int_check(question, exit_code="xxx"):
+# Check that users have entered a valid integer
+
+def int_check(question, low=None, high=None, exit_code="xxx"):
     # sets up an error message
-    error = "Please enter an integer or one that is above 0 only"
+    if low is None and high is None:
+        error = "Please enter an integer"
+        print()
+
+    # if the number needs to be more than an
+    # integer (ie: rounds / high number)
+    elif low is not None and high is None:
+        error = (f"Please enter an integer that is "
+                 f"more than / equal to {low}")
+        print()
+
+    # if the number needs to be between a low and a high
+    else:
+        error = (f"Please enter and integer that"
+                 f"is between {low} and {high} (inclusive)")
+        print()
 
     while True:
         response = input(question).lower()
@@ -16,10 +31,17 @@ def int_check(question, exit_code="xxx"):
         try:
             response = int(response)
 
-            if response <= 0:
+            # checks that the integer is not lower than the low num
+            if low is not None and response < low:
                 print(error)
 
-            return response
+            # checks that the integer is not higher than the high num
+            elif high is not None and response > high:
+                print(error)
+
+            # returns the response if the response entered meets the criteria
+            else:
+                return response
 
         except ValueError:
             print(error)
@@ -58,30 +80,21 @@ def yes_no(question):
             print("you didn't choose a valid option (yes/no)")
 
 
-# the entire game/quiz, contains most of what is outputted
 def quiz():
     # Initializes variables
     question_num = 0
     history = []
-    question_correct = 0
-    question_wrong = 0
+    round_won = 0
+    round_lost = 0
 
     # asks the user how hard they would like the quiz to be
     while True:
-        difficulty = int_check("What level of difficulty do you want to play? 1 to 3, with 3 being the hardest: ")
-        if difficulty > 3:
-            print("Choose a number from 1 to 3 only: ")
-
-        # returns the user back to the start of the loop
-        elif difficulty <= 0:
-            pass
-
-        # exits the loop
-        else:
-            break
+        difficulty = int_check("What level of difficulty do you want to play? 1 to 3, with 3 being the hardest: ",
+                               low=1, high=3)
+        break
 
     # loops while question_num is lower than amount of questions - chosen at the start
-    while question_num < amount_of_questions:
+    while question_num < amount_questions:
 
         print()
         print(f"Question {question_num + 1}:")
@@ -104,8 +117,7 @@ def quiz():
         question_type = random.choice(math_type)
 
         # generates the question format
-        if question_type == "subtraction":
-            # makes sure that the answer will always result in a positive
+        if math_type == "subtraction":
             num_1 = num_1 + num_2
             question_format = f"What is {num_1} - {num_2}? "
             answer = num_1 - num_2
@@ -124,8 +136,11 @@ def quiz():
             question_format = f"What is {num_1} divided by {num_2}? "
             answer = num_1 / num_2
 
-        # The user gets to answer the question
+        # The user gets to ask the question
         user_answer = int_check(question_format)
+
+        # makes the answer an integer
+        answer = int(answer)
 
         # if the user types the exit code they are able to leave the game
         if user_answer == "xxx":
@@ -135,15 +150,15 @@ def quiz():
 
         # sets correct to yes if the answer is correct
         elif user_answer == answer:
-            question_correct += 1
+            round_won += 1
             feedback = f"You got the answer right, it was {answer}"
-            history_item = f"Question {question_num + 1}: You got the answer right, it was {answer}."
+            history_item = f"Question {question_num + 1}: You got the answer right, it was {answer} ✅."
 
         # sets correct to no
         else:
-            question_wrong += 1
+            round_lost += 1
             feedback = f"You got the answer wrong, it was {answer}"
-            history_item = f"Question {question_num + 1}: You got the answer wrong, it was {answer}."
+            history_item = f"Question {question_num + 1}: You got the answer wrong, it was {answer} ❌."
 
         # adds the round result into a list
         history.append(history_item)
@@ -179,16 +194,16 @@ def quiz():
     # If yes, displays the game stats
     if view_stats == "yes":
         # Calculates the win percentage
-        rounds_won = question_correct / question_num * 100
+        question_correct = round_won / question_num * 100
 
         # Calculates loss percentage:
-        rounds_lost = question_wrong / question_num * 100
+        question_wrong = round_lost / question_num * 100
 
         print(f"Out of {question_num} questions:")
         print()
-        print(f"- {rounds_won:.2f}% of questions correct")
+        print(f"- {question_correct:.2f}% of questions correct")
         print()
-        print(f"- {rounds_lost:.2f}% of questions wrong")
+        print(f"- {question_wrong:.2f}% of questions wrong")
         print()
 
 
@@ -206,12 +221,11 @@ want_instruction = yes_no("Do you want to read the instructions? (If so type yes
 if want_instruction == "yes":
     instructions()
 
-# keeps looping until the user inputs a number above 0
 while True:
     # asks the user how many questions they want
-    amount_of_questions = int_check("How many questions do you want us to ask? ")
+    amount_questions = int_check("How many questions do you want us to ask? ")
 
-    if amount_of_questions > 0:
+    if amount_questions > 0:
         break
 
 # Starts the quiz
