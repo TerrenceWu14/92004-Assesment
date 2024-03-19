@@ -137,7 +137,7 @@ def quiz():
             answer = num_1 / num_2
 
         # The user gets to ask the question
-        user_answer = int_check(question_format)
+        user_answer = int_check(question_format, low=1)
 
         # makes the answer an integer
         answer = int(answer)
@@ -223,7 +223,7 @@ if want_instruction == "yes":
 
 while True:
     # asks the user how many questions they want
-    amount_questions = int_check("How many questions do you want us to ask? ")
+    amount_questions = int_check("How many questions do you want us to ask? ", low=1)
 
     if amount_questions > 0:
         break
