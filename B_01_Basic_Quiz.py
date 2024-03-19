@@ -88,10 +88,8 @@ def quiz():
     round_lost = 0
 
     # asks the user how hard they would like the quiz to be
-    while True:
-        difficulty = int_check("What level of difficulty do you want to play? 1 to 3, with 3 being the hardest: ",
-                               low=1, high=3)
-        break
+    difficulty = int_check("What level of difficulty do you want to play? 1 to 3, with 3 being the hardest: ",
+                           low=1, high=3)
 
     # loops while question_num is lower than amount of questions - chosen at the start
     while question_num < amount_questions:
@@ -221,12 +219,13 @@ want_instruction = yes_no("Do you want to read the instructions? (If so type yes
 if want_instruction == "yes":
     instructions()
 
-while True:
-    # asks the user how many questions they want
-    amount_questions = int_check("How many questions do you want us to ask? ", low=1)
+# asks the user how many questions they want
+amount_questions = int_check("How many questions do you want us to ask? ", low=1, exit_code="xxx")
 
-    if amount_questions > 0:
-        break
+if amount_questions == "xxx":
+    print("Sorry you have not answered a single question thus there is no history"
+          "or statistics we can show you.")
+    exit()
 
 # Starts the quiz
 quiz()
